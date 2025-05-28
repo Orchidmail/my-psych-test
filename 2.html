@@ -4,54 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>2. 요즘 내 마음의 날씨는?</title>
-  <!-- 공통 CSS 파일 연결 -->
+  <!-- 1.html과 동일하게 공통 CSS를 연결 -->
   <link rel="stylesheet" href="css/style.css" />
-  <style>
-    /* 페이지별 추가 스타일 (필요시 수정) */
-    .question {
-      margin-bottom: 30px;
-    }
-    .choice {
-      display: block;
-      margin: 10px 0;
-      padding: 12px;
-      width: 100%;
-      max-width: 300px;
-      font-size: 16px;
-      border: 2px solid #333;
-      border-radius: 8px;
-      cursor: pointer;
-      background: #fff;
-      text-align: left;
-    }
-    .choice:hover {
-      background-color: #f0f0f0;
-    }
-    #result {
-      text-align: center;
-    }
-    #result h2 {
-      font-size: 1.5rem;
-      margin-bottom: 10px;
-    }
-    #result p {
-      margin-bottom: 20px;
-    }
-    #result button {
-      margin: 5px;
-      padding: 10px 16px;
-      border-radius: 6px;
-      border: none;
-      cursor: pointer;
-      font-size: 14px;
-      background-color: #4CAF50;
-      color: #fff;
-      transition: background-color 0.2s;
-    }
-    #result button:hover {
-      background-color: #45a049;
-    }
-  </style>
 </head>
 <body>
   <header>
@@ -60,8 +14,8 @@
   </header>
 
   <main>
-    <!-- 질문 1 -->
-    <section id="q1" class="question">
+    <!-- Q1 -->
+    <section id="question1" class="question">
       <p><strong>Q1. 오늘 기분이 가장 잘 드러나는 한마디는?</strong></p>
       <button class="choice" data-score="sunny">A. “오늘은 모든 게 잘 풀릴 것 같아!”</button>
       <button class="choice" data-score="cloudy">B. “그냥 무던하게 보내고 싶어.”</button>
@@ -69,8 +23,8 @@
       <button class="choice" data-score="stormy">D. “머릿속이 복잡해서 폭풍 같아!”</button>
     </section>
 
-    <!-- 질문 2 -->
-    <section id="q2" class="question" style="display: none;">
+    <!-- Q2 (처음엔 가려둠) -->
+    <section id="question2" class="question" style="display: none;">
       <p><strong>Q2. 스트레스를 받을 때 주로 하는 행동은?</strong></p>
       <button class="choice" data-score="sunny">A. 친구와 웃으며 수다 떨기</button>
       <button class="choice" data-score="cloudy">B. 조용히 음악 들으며 쉬기</button>
@@ -78,8 +32,8 @@
       <button class="choice" data-score="stormy">D. 격하게 운동하거나 질러버리기</button>
     </section>
 
-    <!-- 질문 3 -->
-    <section id="q3" class="question" style="display: none;">
+    <!-- Q3 -->
+    <section id="question3" class="question" style="display: none;">
       <p><strong>Q3. 이상적인 힐링 방법은?</strong></p>
       <button class="choice" data-score="sunny">A. 야외 나들이하며 산책하기</button>
       <button class="choice" data-score="cloudy">B. 따뜻한 차 한 잔과 책 읽기</button>
@@ -87,95 +41,86 @@
       <button class="choice" data-score="stormy">D. 신나는 음악 크게 틀고 춤추기</button>
     </section>
 
-    <!-- 결과 보여줄 섹션 -->
-    <section id="result" style="display: none;">
-      <!-- JavaScript로 결과 채워질 예정 -->
-    </section>
+    <!-- 결과를 보여줄 섹션 -->
+    <section id="result" style="display: none;"></section>
   </main>
 
   <footer>
     <p>© 2025 MyPsychTest</p>
   </footer>
 
+  <!-- 1.html과 같은 방식으로 하단에 스크립트 삽입 -->
   <script>
     document.addEventListener('DOMContentLoaded', () => {
-      const choices = document.querySelectorAll('.choice');
       const questions = document.querySelectorAll('.question');
+      const choices = document.querySelectorAll('.choice');
       let answers = [];
 
-      choices.forEach(btn => {
-        btn.addEventListener('click', (e) => {
-          // 답변 점수(날씨 코드) 저장
-          const weatherType = e.target.getAttribute('data-score');
-          answers.push(weatherType);
+      choices.forEach(button => {
+        button.addEventListener('click', (e) => {
+          const type = e.target.getAttribute('data-score');
+          answers.push(type);
 
-          // 현재 질문 숨기고 다음 질문 표시
-          const currentSection = e.target.closest('.question');
-          const nextSection = currentSection.nextElementSibling;
-          if (nextSection && nextSection.classList.contains('question')) {
-            currentSection.style.display = 'none';
-            nextSection.style.display = 'block';
+          const current = e.target.closest('.question');
+          const next = current.nextElementSibling;
+          if (next && next.classList.contains('question')) {
+            current.style.display = 'none';
+            next.style.display = 'block';
           } else {
-            // 마지막 질문이 끝나면 결과 표시
-            showResult(answers);
+            renderResult(answers);
           }
         });
       });
 
-      function showResult(arr) {
-        // 각 날씨 코드별 빈도 계산
-        const counts = arr.reduce((acc, cur) => {
+      function renderResult(arr) {
+        // 각 날씨별 선택 횟수 계산
+        const tally = arr.reduce((acc, cur) => {
           acc[cur] = (acc[cur] || 0) + 1;
           return acc;
         }, {});
 
-        // 가장 많이 선택된 날씨 타입 찾기
-        let maxType = 'sunny';
-        let maxCount = 0;
-        Object.keys(counts).forEach(type => {
-          if (counts[type] > maxCount) {
-            maxCount = counts[type];
-            maxType = type;
+        // 가장 많은 값을 가진 날씨 키 찾기
+        let topType = 'sunny';
+        let topCount = 0;
+        for (let key in tally) {
+          if (tally[key] > topCount) {
+            topCount = tally[key];
+            topType = key;
           }
-        });
+        }
 
-        // 날씨별 결과 텍스트 및 설명
-        let resultTitle = '';
-        let resultDesc = '';
-        switch (maxType) {
+        let titleText = '';
+        let description = '';
+        switch (topType) {
           case 'sunny':
-            resultTitle = '☀️ 맑음';
-            resultDesc = '지금 당신의 마음은 기분 좋고 밝은 햇살처럼 맑아요! 새로운 도전도 두렵지 않답니다.';
+            titleText = '☀️ 맑음';
+            description = '지금 당신의 마음은 기분 좋고 밝은 햇살처럼 맑아요! 새로운 도전도 두렵지 않답니다.';
             break;
           case 'cloudy':
-            resultTitle = '☁️ 흐림';
-            resultDesc = '요즘 당신의 마음은 구름 낀 하늘 같아요. 큰 기복 없이 무난하지만, 가끔은 차분한 휴식이 필요해요.';
+            titleText = '☁️ 흐림';
+            description = '요즘 당신의 마음은 구름 낀 하늘 같아요. 큰 기복 없이 무난하지만, 가끔은 차분한 휴식이 필요해요.';
             break;
           case 'rainy':
-            resultTitle = '🌧️ 비';
-            resultDesc = '지금 당신의 마음은 잔잔한 빗방울처럼 촉촉하고 감성적이에요. 가끔 울적해도 괜찮아요. 감정을 표현할 시간이 필요해요.';
+            titleText = '🌧️ 비';
+            description = '지금 당신의 마음은 잔잔한 빗방울처럼 촉촉하고 감성적이에요. 가끔 울적해도 괜찮아요. 감정을 표현할 시간이 필요해요.';
             break;
           case 'stormy':
-            resultTitle = '⛈️ 폭풍';
-            resultDesc = '지금 당신의 마음은 폭풍이 몰아치는 것처럼 복잡해요. 스트레스가 최고조에 달해있을 수 있어요. 잠시 멈추고 숨 고를 필요가 있어요.';
+            titleText = '⛈️ 폭풍';
+            description = '지금 당신의 마음은 폭풍이 몰아치는 것처럼 복잡해요. 스트레스가 최고조에 달해 있을 수 있어요. 잠시 멈추고 숨 고를 필요가 있어요.';
             break;
         }
 
-        // 결과 섹션에 내용 삽입
-        const resSection = document.getElementById('result');
-        resSection.innerHTML = `
-          <h2>결과: ${resultTitle}</h2>
-          <p>${resultDesc}</p>
+        const resultSection = document.getElementById('result');
+        resultSection.innerHTML = `
+          <h2>결과: ${titleText}</h2>
+          <p>${description}</p>
           <button id="retry">다시 하기</button>
           <button id="toIndex">테스트 목록으로</button>
         `;
 
-        // 모든 질문 숨기기
-        questions.forEach(sec => sec.style.display = 'none');
-        // 결과 섹션 표시
-        resSection.style.display = 'block';
+        questions.forEach(q => q.style.display = 'none');
+        resultSection.style.display = 'block';
 
-        // 버튼 이벤트 연결
         document.getElementById('retry').addEventListener('click', () => {
           location.href = '2.html';
         });
