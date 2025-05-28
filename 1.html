@@ -63,6 +63,7 @@
     <h2>당신의 연애 스타일은...</h2>
     <p id="result-text"></p>
     <button id="restart-btn">다시 하기</button>
+    <button id="home-btn">메인 화면으로</button>
   </div>
 
   <script>
@@ -145,6 +146,7 @@
     const resultBox = document.getElementById("result-box");
     const resultText = document.getElementById("result-text");
     const restartBtn = document.getElementById("restart-btn");
+    const homeBtn = document.getElementById("home-btn");
 
     function loadQuestion() {
       const q = questions[currentIndex];
@@ -182,6 +184,10 @@
       resultBox.style.display = "none";
       questionBox.style.display = "block";
       loadQuestion();
+    };
+
+    homeBtn.onclick = () => {
+      location.href = "index.html";
     };
 
     // 페이지 열리면 첫 질문 표시
