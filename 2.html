@@ -2,133 +2,168 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>2. 요즘 내 마음의 날씨는?</title>
-  <!-- 1.html과 동일하게 공통 CSS를 연결 -->
-  <link rel="stylesheet" href="css/style.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>요즘 내 마음의 날씨는? 테스트</title>
+  <style>
+    body {
+      font-family: 'Noto Sans KR', sans-serif;
+      max-width: 480px;
+      margin: 30px auto;
+      padding: 20px;
+      background: #f8f8f8;
+      color: #333;
+    }
+    h1 {
+      text-align: center;
+      color: #1e90ff;
+    }
+    #question-box, #result-box {
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+    }
+    button {
+      display: block;
+      width: 100%;
+      padding: 12px;
+      margin: 12px 0;
+      font-size: 16px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      background: #1e90ff;
+      color: white;
+      transition: background 0.3s ease;
+    }
+    button:hover {
+      background: #187bcd;
+    }
+    #result-box {
+      display: none;
+      text-align: center;
+    }
+    #result-box h2 {
+      color: #1e90ff;
+      margin-bottom: 10px;
+    }
+  </style>
 </head>
 <body>
-  <header>
-    <h1>요즘 내 마음의 날씨는?</h1>
-    <a href="index.html">← 테스트 목록으로 돌아가기</a>
-  </header>
+  <h1>요즘 내 마음의 날씨는?</h1>
 
-  <main>
-    <!-- Q1 -->
-    <section id="question1" class="question">
-      <p><strong>Q1. 오늘 기분이 가장 잘 드러나는 한마디는?</strong></p>
-      <button class="choice" data-score="sunny">A. “오늘은 모든 게 잘 풀릴 것 같아!”</button>
-      <button class="choice" data-score="cloudy">B. “그냥 무던하게 보내고 싶어.”</button>
-      <button class="choice" data-score="rainy">C. “왠지 마음이 울적해…”</button>
-      <button class="choice" data-score="stormy">D. “머릿속이 복잡해서 폭풍 같아!”</button>
-    </section>
+  <div id="question-box">
+    <h2 id="question">질문</h2>
+    <button id="btn0"></button>
+    <button id="btn1"></button>
+    <button id="btn2"></button>
+    <button id="btn3"></button>
+  </div>
 
-    <!-- Q2 (처음엔 가려둠) -->
-    <section id="question2" class="question" style="display: none;">
-      <p><strong>Q2. 스트레스를 받을 때 주로 하는 행동은?</strong></p>
-      <button class="choice" data-score="sunny">A. 친구와 웃으며 수다 떨기</button>
-      <button class="choice" data-score="cloudy">B. 조용히 음악 들으며 쉬기</button>
-      <button class="choice" data-score="rainy">C. 혼자 조용히 눈물 흘리기</button>
-      <button class="choice" data-score="stormy">D. 격하게 운동하거나 질러버리기</button>
-    </section>
+  <div id="result-box">
+    <h2>당신의 마음의 날씨는...</h2>
+    <p id="result-text"></p>
+    <button id="restart-btn">다시 하기</button>
+    <button id="home-btn">메인 화면으로</button>
+  </div>
 
-    <!-- Q3 -->
-    <section id="question3" class="question" style="display: none;">
-      <p><strong>Q3. 이상적인 힐링 방법은?</strong></p>
-      <button class="choice" data-score="sunny">A. 야외 나들이하며 산책하기</button>
-      <button class="choice" data-score="cloudy">B. 따뜻한 차 한 잔과 책 읽기</button>
-      <button class="choice" data-score="rainy">C. 감성 영화 보며 눈물 흘리기</button>
-      <button class="choice" data-score="stormy">D. 신나는 음악 크게 틀고 춤추기</button>
-    </section>
-
-    <!-- 결과를 보여줄 섹션 -->
-    <section id="result" style="display: none;"></section>
-  </main>
-
-  <footer>
-    <p>© 2025 MyPsychTest</p>
-  </footer>
-
-  <!-- 1.html과 같은 방식으로 하단에 스크립트 삽입 -->
   <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const questions = document.querySelectorAll('.question');
-      const choices = document.querySelectorAll('.choice');
-      let answers = [];
-
-      choices.forEach(button => {
-        button.addEventListener('click', (e) => {
-          const type = e.target.getAttribute('data-score');
-          answers.push(type);
-
-          const current = e.target.closest('.question');
-          const next = current.nextElementSibling;
-          if (next && next.classList.contains('question')) {
-            current.style.display = 'none';
-            next.style.display = 'block';
-          } else {
-            renderResult(answers);
-          }
-        });
-      });
-
-      function renderResult(arr) {
-        // 각 날씨별 선택 횟수 계산
-        const tally = arr.reduce((acc, cur) => {
-          acc[cur] = (acc[cur] || 0) + 1;
-          return acc;
-        }, {});
-
-        // 가장 많은 값을 가진 날씨 키 찾기
-        let topType = 'sunny';
-        let topCount = 0;
-        for (let key in tally) {
-          if (tally[key] > topCount) {
-            topCount = tally[key];
-            topType = key;
-          }
-        }
-
-        let titleText = '';
-        let description = '';
-        switch (topType) {
-          case 'sunny':
-            titleText = '☀️ 맑음';
-            description = '지금 당신의 마음은 기분 좋고 밝은 햇살처럼 맑아요! 새로운 도전도 두렵지 않답니다.';
-            break;
-          case 'cloudy':
-            titleText = '☁️ 흐림';
-            description = '요즘 당신의 마음은 구름 낀 하늘 같아요. 큰 기복 없이 무난하지만, 가끔은 차분한 휴식이 필요해요.';
-            break;
-          case 'rainy':
-            titleText = '🌧️ 비';
-            description = '지금 당신의 마음은 잔잔한 빗방울처럼 촉촉하고 감성적이에요. 가끔 울적해도 괜찮아요. 감정을 표현할 시간이 필요해요.';
-            break;
-          case 'stormy':
-            titleText = '⛈️ 폭풍';
-            description = '지금 당신의 마음은 폭풍이 몰아치는 것처럼 복잡해요. 스트레스가 최고조에 달해 있을 수 있어요. 잠시 멈추고 숨 고를 필요가 있어요.';
-            break;
-        }
-
-        const resultSection = document.getElementById('result');
-        resultSection.innerHTML = `
-          <h2>결과: ${titleText}</h2>
-          <p>${description}</p>
-          <button id="retry">다시 하기</button>
-          <button id="toIndex">테스트 목록으로</button>
-        `;
-
-        questions.forEach(q => q.style.display = 'none');
-        resultSection.style.display = 'block';
-
-        document.getElementById('retry').addEventListener('click', () => {
-          location.href = '2.html';
-        });
-        document.getElementById('toIndex').addEventListener('click', () => {
-          location.href = 'index.html';
-        });
+    const questions = [
+      {
+        q: "오늘 기분이 가장 잘 드러나는 한마디는?",
+        options: [
+          { text: "“오늘은 모든 게 잘 풀릴 것 같아!”", type: "sunny" },
+          { text: "“그냥 무던하게 보내고 싶어.”", type: "cloudy" },
+          { text: "“왠지 마음이 울적해…”", type: "rainy" },
+          { text: "“머릿속이 복잡해서 폭풍 같아!”", type: "stormy" }
+        ]
+      },
+      {
+        q: "스트레스를 받을 때 주로 하는 행동은?",
+        options: [
+          { text: "친구와 웃으며 수다 떨기", type: "sunny" },
+          { text: "조용히 음악 들으며 쉬기", type: "cloudy" },
+          { text: "혼자 조용히 눈물 흘리기", type: "rainy" },
+          { text: "격하게 운동하거나 질러버리기", type: "stormy" }
+        ]
+      },
+      {
+        q: "이상적인 힐링 방법은?",
+        options: [
+          { text: "야외 나들이하며 산책하기", type: "sunny" },
+          { text: "따뜻한 차 한 잔과 책 읽기", type: "cloudy" },
+          { text: "감성 영화 보며 눈물 흘리기", type: "rainy" },
+          { text: "신나는 음악 크게 틀고 춤추기", type: "stormy" }
+        ]
       }
-    });
+    ];
+
+    const results = {
+      sunny:  "☀️ 맑음 – 당신의 마음은 지금 밝고 활기차요! 새로운 도전에도 자신감이 넘치고, 주변 사람들에게 긍정적인 에너지를 전해주고 있습니다.",
+      cloudy: "☁️ 흐림 – 요즘 마음이 잔잔하게 흐려진 구름 같아요. 큰 기복은 없지만, 차분한 휴식과 재충전이 필요할 때입니다.",
+      rainy:  "🌧️ 비 – 당신의 마음은 촉촉한 빗방울처럼 감성적이고 섬세해요. 가끔은 울적함이 찾아오지만, 그만큼 깊은 공감 능력을 지니고 있습니다.",
+      stormy:"⛈️ 폭풍 – 지금 마음속에 많은 감정이 소용돌이치고 있군요. 복잡한 생각들이 가득하지만, 이 또한 지나가고 나면 더 강해질 것입니다."
+    };
+
+    let currentIndex = 0;
+    const score = { sunny: 0, cloudy: 0, rainy: 0, stormy: 0 };
+
+    const questionEl = document.getElementById("question");
+    const buttons = [
+      document.getElementById("btn0"),
+      document.getElementById("btn1"),
+      document.getElementById("btn2"),
+      document.getElementById("btn3")
+    ];
+
+    const questionBox = document.getElementById("question-box");
+    const resultBox = document.getElementById("result-box");
+    const resultText = document.getElementById("result-text");
+    const restartBtn = document.getElementById("restart-btn");
+    const homeBtn = document.getElementById("home-btn");
+
+    function loadQuestion() {
+      const q = questions[currentIndex];
+      questionEl.innerText = `Q${currentIndex + 1}. ${q.q}`;
+      q.options.forEach((opt, i) => {
+        buttons[i].innerText = opt.text;
+        buttons[i].onclick = () => selectAnswer(opt.type);
+      });
+    }
+
+    function selectAnswer(type) {
+      score[type]++;
+      currentIndex++;
+      if (currentIndex === questions.length) {
+        showResult();
+      } else {
+        loadQuestion();
+      }
+    }
+
+    function showResult() {
+      questionBox.style.display = "none";
+      resultBox.style.display = "block";
+
+      const sorted = Object.entries(score).sort((a, b) => b[1] - a[1]);
+      const topType = sorted[0][0];
+      resultText.innerText = results[topType];
+    }
+
+    restartBtn.onclick = () => {
+      currentIndex = 0;
+      for (let key in score) score[key] = 0;
+      resultBox.style.display = "none";
+      questionBox.style.display = "block";
+      loadQuestion();
+    };
+
+    homeBtn.onclick = () => {
+      location.href = "index.html";
+    };
+
+    // 페이지가 로드되면 첫 질문 표시
+    loadQuestion();
   </script>
 </body>
 </html>
