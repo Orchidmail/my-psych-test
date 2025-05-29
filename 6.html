@@ -1,43 +1,105 @@
+<!-- 6.html – 나는 어떤 연애 밸런스 게임 캐릭터일까? -->
 <!DOCTYPE html>
 <html lang="ko">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>제작중</title>
+  <title>나는 어떤 연애 밸런스 게임 캐릭터일까?</title>
   <style>
-    body {
-      font-family: 'Noto Sans KR', sans-serif;
-      background: #f8f8f8;
-      text-align: center;
-      padding: 100px 20px;
-      color: #444;
-    }
-    h1 {
-      color: #d6336c;
-      font-size: 24px;
-    }
-    p {
-      font-size: 18px;
-      margin: 20px 0 40px;
-    }
-    button {
-      padding: 12px 24px;
-      font-size: 16px;
-      border: none;
-      border-radius: 8px;
-      background-color: #d6336c;
-      color: white;
-      cursor: pointer;
-      transition: background 0.3s ease;
-    }
-    button:hover {
-      background-color: #b52a5b;
-    }
+    body { font-family: 'Noto Sans KR', sans-serif; max-width: 480px; margin: 30px auto; padding: 20px; background: #f9f9f9; color: #333; }
+    h1 { text-align: center; color: #7b2cbf; }
+    #question-box, #result-box { background: white; padding: 20px; border-radius: 12px; box-shadow: 0 3px 8px rgba(0,0,0,0.1); }
+    button { display: block; width: 100%; padding: 12px; margin: 12px 0; font-size: 16px; border: none; border-radius: 8px; cursor: pointer; background: #7b2cbf; color: white; transition: background 0.3s ease; }
+    button:hover { background: #5a189a; }
+    #result-box { display: none; text-align: center; }
+    #result-box h2 { color: #7b2cbf; }
   </style>
 </head>
 <body>
-  <h1>페이지 제작중입니다</h1>
-  <p>잠시만 기다려주세요 🙇‍♀️</p>
-  <button onclick="location.href='index.html'">메인 화면으로</button>
+  <h1>나는 어떤 연애 밸런스 게임 캐릭터일까?</h1>
+  <div id="question-box">
+    <h2 id="question">질문</h2>
+    <button id="btn0"></button>
+    <button id="btn1"></button>
+    <button id="btn2"></button>
+    <button id="btn3"></button>
+  </div>
+  <div id="result-box">
+    <h2>당신의 연애 캐릭터는...</h2>
+    <p id="result-text"></p>
+    <button id="restart-btn">다시 하기</button>
+    <button onclick="location.href='index.html'">메인 화면으로</button>
+  </div>
+  <script>
+    const questions = [
+      { q: "첫 데이트 장소를 고른다면?", options: [
+        { text: "로맨틱한 레스토랑", type: "A" },
+        { text: "액티비티 가득한 장소", type: "B" },
+        { text: "카페에서 오랜 대화", type: "C" },
+        { text: "상대가 원하는 곳으로 따라간다", type: "D" } ] },
+      { q: "연애 중 싸움이 나면?", options: [
+        { text: "감정적으로 폭발!", type: "B" },
+        { text: "조용히 연락을 끊는다", type: "C" },
+        { text: "그 자리에서 바로 푼다", type: "A" },
+        { text: "일단 받아들이고 넘어간다", type: "D" } ] },
+      { q: "썸 타는 중 상대의 행동은?", options: [
+        { text: "계속 연락 안 오면 나도 끊는다", type: "C" },
+        { text: "매일 먼저 연락한다", type: "A" },
+        { text: "상대에게 맞춰간다", type: "D" },
+        { text: "계속 애타게 만든다", type: "B" } ] },
+      { q: "사랑을 표현할 때 나는?", options: [
+        { text: "말보다 행동으로 보여준다", type: "D" },
+        { text: "애교와 센스로 어필한다", type: "B" },
+        { text: "솔직하게 고백한다", type: "A" },
+        { text: "시선 피하며 돌려 말한다", type: "C" } ] },
+      { q: "이상형은?", options: [
+        { text: "잘 챙겨주는 사람", type: "D" },
+        { text: "모험적이고 자유로운 사람", type: "B" },
+        { text: "자신감 있고 추진력 있는 사람", type: "A" },
+        { text: "내면이 깊고 섬세한 사람", type: "C" } ] }
+    ];
+    const results = {
+      A: "💞 순정파\n\n당신은 마음이 가는 대로 직진하는 순정파 연애 캐릭터!",
+      B: "🔥 직진남녀\n\n불꽃처럼 열정적인 연애 스타일의 당신, 강렬한 직진러!",
+      C: "😎 밀당러\n\n연애는 밀당이 생명이죠? 감정 조절 고수 밀당러!",
+      D: "🎭 반전캐\n\n겉과 속이 다른 매력의 반전 연애 캐릭터!"
+    };
+    let currentIndex = 0;
+    const score = { A: 0, B: 0, C: 0, D: 0 };
+    const questionEl = document.getElementById("question");
+    const buttons = ["btn0", "btn1", "btn2", "btn3"].map(id => document.getElementById(id));
+    const questionBox = document.getElementById("question-box");
+    const resultBox = document.getElementById("result-box");
+    const resultText = document.getElementById("result-text");
+    const restartBtn = document.getElementById("restart-btn");
+    function loadQuestion() {
+      const q = questions[currentIndex];
+      questionEl.innerText = `Q${currentIndex + 1}. ${q.q}`;
+      q.options.forEach((opt, i) => {
+        buttons[i].innerText = opt.text;
+        buttons[i].onclick = () => selectAnswer(opt.type);
+      });
+    }
+    function selectAnswer(type) {
+      score[type]++;
+      currentIndex++;
+      if (currentIndex === questions.length) showResult();
+      else loadQuestion();
+    }
+    function showResult() {
+      questionBox.style.display = "none";
+      resultBox.style.display = "block";
+      const topType = Object.entries(score).sort((a,b) => b[1]-a[1])[0][0];
+      resultText.innerText = results[topType];
+    }
+    restartBtn.onclick = () => {
+      currentIndex = 0;
+      for (let key in score) score[key] = 0;
+      resultBox.style.display = "none";
+      questionBox.style.display = "block";
+      loadQuestion();
+    };
+    loadQuestion();
+  </script>
 </body>
 </html>
