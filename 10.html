@@ -3,41 +3,100 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>제작중</title>
+  <title>나는 어떤 SNS 스타일일까?</title>
   <style>
-    body {
-      font-family: 'Noto Sans KR', sans-serif;
-      background: #f8f8f8;
-      text-align: center;
-      padding: 100px 20px;
-      color: #444;
-    }
-    h1 {
-      color: #d6336c;
-      font-size: 24px;
-    }
-    p {
-      font-size: 18px;
-      margin: 20px 0 40px;
-    }
-    button {
-      padding: 12px 24px;
-      font-size: 16px;
-      border: none;
-      border-radius: 8px;
-      background-color: #d6336c;
-      color: white;
-      cursor: pointer;
-      transition: background 0.3s ease;
-    }
-    button:hover {
-      background-color: #b52a5b;
-    }
+    body { font-family: 'Noto Sans KR', sans-serif; max-width: 480px; margin: 30px auto; padding: 20px; background: #f3faff; color: #333; }
+    h1 { text-align: center; color: #339af0; }
+    #question-box, #result-box { background: white; padding: 20px; border-radius: 12px; box-shadow: 0 3px 8px rgba(0,0,0,0.1); }
+    button { display: block; width: 100%; padding: 12px; margin: 12px 0; font-size: 16px; border: none; border-radius: 8px; cursor: pointer; background: #339af0; color: white; transition: background 0.3s ease; }
+    button:hover { background: #1c7ed6; }
+    #result-box { display: none; text-align: center; }
+    #result-box h2 { color: #339af0; }
   </style>
 </head>
 <body>
-  <h1>페이지 제작중입니다</h1>
-  <p>잠시만 기다려주세요 🙇‍♀️</p>
-  <button onclick="location.href='index.html'">메인 화면으로</button>
+  <h1>나는 어떤 SNS 스타일일까?</h1>
+  <div id="question-box">
+    <h2 id="question">질문</h2>
+    <button id="btn0"></button>
+    <button id="btn1"></button>
+    <button id="btn2"></button>
+    <button id="btn3"></button>
+  </div>
+  <div id="result-box">
+    <h2>당신의 SNS 스타일은...</h2>
+    <p id="result-text"></p>
+    <button id="restart-btn">다시 하기</button>
+    <button onclick="location.href='index.html'">메인 화면으로</button>
+  </div>
+  <script>
+    const questions = [
+      { q: "SNS에 어떤 걸 자주 올리나요?", options: [
+        { text: "일상 브이로그 느낌으로 자주 업로드!", type: "A" },
+        { text: "감성 글귀나 예쁜 사진", type: "B" },
+        { text: "가끔 눈에 띄는 것만", type: "C" },
+        { text: "SNS 거의 안 하거나 비공개", type: "D" }
+      ]},
+      { q: "좋아요/댓글 반응이 없으면?", options: [
+        { text: "슬슬 눈치 보며 삭제할까 고민", type: "A" },
+        { text: "조금 아쉽긴 하지만 괜찮다", type: "B" },
+        { text: "그런 거 신경 안 씀", type: "C" },
+        { text: "그런 이유로 SNS를 안 함", type: "D" }
+      ]},
+      { q: "SNS 친구 관리 스타일은?", options: [
+        { text: "팔로우도 자주 확인하고 정리함", type: "A" },
+        { text: "불편한 사람만 정리", type: "B" },
+        { text: "한 번 맺으면 잘 안 끊음", type: "C" },
+        { text: "거의 비공개라 친구가 없음", type: "D" }
+      ]}
+    ];
+    const results = {
+      A: "📸 인플루언서형\nSNS를 통해 자신을 표현하고 소통하는 걸 즐기는 타입! 콘텐츠 감각도 뛰어나요.",
+      B: "🎨 감성러형\n예쁘고 감성적인 분위기를 좋아하는 당신, 피드도 당신의 감성이 그대로 묻어나요.",
+      C: "🕶 관망형\n보고는 있지만 적극적으로 나서진 않아요. SNS는 관찰의 도구!",
+      D: "🔒 은둔형\nSNS는 내 사생활에 방해일 뿐. 조용히 내 삶을 살아가는 비공개 마스터."
+    };
+    let currentIndex = 0;
+    const score = { A: 0, B: 0, C: 0, D: 0 };
+    const questionEl = document.getElementById("question");
+    const buttons = ["btn0", "btn1", "btn2", "btn3"].map(id => document.getElementById(id));
+    const questionBox = document.getElementById("question-box");
+    const resultBox = document.getElementById("result-box");
+    const resultText = document.getElementById("result-text");
+    const restartBtn = document.getElementById("restart-btn");
+
+    function loadQuestion() {
+      const q = questions[currentIndex];
+      questionEl.innerText = `Q${currentIndex + 1}. ${q.q}`;
+      q.options.forEach((opt, i) => {
+        buttons[i].innerText = opt.text;
+        buttons[i].onclick = () => selectAnswer(opt.type);
+      });
+    }
+
+    function selectAnswer(type) {
+      score[type]++;
+      currentIndex++;
+      if (currentIndex === questions.length) showResult();
+      else loadQuestion();
+    }
+
+    function showResult() {
+      questionBox.style.display = "none";
+      resultBox.style.display = "block";
+      const topType = Object.entries(score).sort((a, b) => b[1] - a[1])[0][0];
+      resultText.innerText = results[topType];
+    }
+
+    restartBtn.onclick = () => {
+      currentIndex = 0;
+      for (let key in score) score[key] = 0;
+      resultBox.style.display = "none";
+      questionBox.style.display = "block";
+      loadQuestion();
+    };
+
+    loadQuestion();
+  </script>
 </body>
 </html>

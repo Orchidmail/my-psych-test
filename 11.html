@@ -3,41 +3,111 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>제작중</title>
+  <title>나의 감정 소비 유형은?</title>
   <style>
-    body {
-      font-family: 'Noto Sans KR', sans-serif;
-      background: #f8f8f8;
-      text-align: center;
-      padding: 100px 20px;
-      color: #444;
-    }
-    h1 {
-      color: #d6336c;
-      font-size: 24px;
-    }
-    p {
-      font-size: 18px;
-      margin: 20px 0 40px;
-    }
-    button {
-      padding: 12px 24px;
-      font-size: 16px;
-      border: none;
-      border-radius: 8px;
-      background-color: #d6336c;
-      color: white;
-      cursor: pointer;
-      transition: background 0.3s ease;
-    }
-    button:hover {
-      background-color: #b52a5b;
-    }
+    body { font-family: 'Noto Sans KR', sans-serif; max-width: 480px; margin: 30px auto; padding: 20px; background: #fff0f6; color: #333; }
+    h1 { text-align: center; color: #d6336c; }
+    #question-box, #result-box { background: white; padding: 20px; border-radius: 12px; box-shadow: 0 3px 8px rgba(0,0,0,0.1); }
+    button { display: block; width: 100%; padding: 12px; margin: 12px 0; font-size: 16px; border: none; border-radius: 8px; cursor: pointer; background: #d6336c; color: white; transition: background 0.3s ease; }
+    button:hover { background: #b52a5b; }
+    #result-box { display: none; text-align: center; }
+    #result-box h2 { color: #d6336c; }
   </style>
 </head>
 <body>
-  <h1>페이지 제작중입니다</h1>
-  <p>잠시만 기다려주세요 🙇‍♀️</p>
-  <button onclick="location.href='index.html'">메인 화면으로</button>
+  <h1>나의 감정 소비 유형은?</h1>
+  <div id="question-box">
+    <h2 id="question">질문</h2>
+    <button id="btn0"></button>
+    <button id="btn1"></button>
+    <button id="btn2"></button>
+    <button id="btn3"></button>
+  </div>
+  <div id="result-box">
+    <h2>당신의 감정 소비 유형은...</h2>
+    <p id="result-text"></p>
+    <button id="restart-btn">다시 하기</button>
+    <button onclick="location.href='index.html'">메인 화면으로</button>
+  </div>
+  <script>
+    const questions = [
+      {
+        q: "감정이 격해질 때 당신은?",
+        options: [
+          { text: "주변 사람에게 털어놓는다", type: "A" },
+          { text: "혼자 조용히 정리한다", type: "B" },
+          { text: "일단 참다가 폭발한다", type: "C" },
+          { text: "즐기는 콘텐츠로 감정을 전환한다", type: "D" }
+        ]
+      },
+      {
+        q: "기분이 안 좋을 때 당신의 선택은?",
+        options: [
+          { text: "친구와 수다 떨며 해소", type: "A" },
+          { text: "혼자 산책하거나 멍때리기", type: "B" },
+          { text: "참다가 한꺼번에 쏟아냄", type: "C" },
+          { text: "넷플릭스, 게임, 쇼핑으로 전환", type: "D" }
+        ]
+      },
+      {
+        q: "감정 표현에 있어 당신은?",
+        options: [
+          { text: "잘 드러내며 표현하는 편", type: "A" },
+          { text: "잘 표현하지 않고 속으로 삭인다", type: "B" },
+          { text: "쌓아두다 한 번에 보여준다", type: "C" },
+          { text: "감정을 다른 활동으로 자연스럽게 녹인다", type: "D" }
+        ]
+      }
+    ];
+
+    const results = {
+      A: "💬 감정 발산형\n\n감정은 나누는 것! 이야기하며 해소하고 사람과의 소통을 통해 치유받는 타입이에요.",
+      B: "🧘 감정 내면형\n\n조용히 정리하고 혼자만의 시간을 통해 감정을 흘려보내는 성숙한 내면형입니다.",
+      C: "🌋 감정 폭발형\n\n평소엔 억제하다 한 번에 쏟아내는 타입. 주기적 해소가 필요해요.",
+      D: "🎮 감정 전환형\n\n다른 활동으로 감정을 자연스럽게 털어내는 실용적 감정 해소형이에요."
+    };
+
+    let currentIndex = 0;
+    const score = { A: 0, B: 0, C: 0, D: 0 };
+    const questionEl = document.getElementById("question");
+    const buttons = ["btn0", "btn1", "btn2", "btn3"].map(id => document.getElementById(id));
+    const questionBox = document.getElementById("question-box");
+    const resultBox = document.getElementById("result-box");
+    const resultText = document.getElementById("result-text");
+    const restartBtn = document.getElementById("restart-btn");
+
+    function loadQuestion() {
+      const q = questions[currentIndex];
+      questionEl.innerText = `Q${currentIndex + 1}. ${q.q}`;
+      q.options.forEach((opt, i) => {
+        buttons[i].innerText = opt.text;
+        buttons[i].onclick = () => selectAnswer(opt.type);
+      });
+    }
+
+    function selectAnswer(type) {
+      score[type]++;
+      currentIndex++;
+      if (currentIndex === questions.length) showResult();
+      else loadQuestion();
+    }
+
+    function showResult() {
+      questionBox.style.display = "none";
+      resultBox.style.display = "block";
+      const topType = Object.entries(score).sort((a,b) => b[1]-a[1])[0][0];
+      resultText.innerText = results[topType];
+    }
+
+    restartBtn.onclick = () => {
+      currentIndex = 0;
+      for (let key in score) score[key] = 0;
+      resultBox.style.display = "none";
+      questionBox.style.display = "block";
+      loadQuestion();
+    };
+
+    loadQuestion();
+  </script>
 </body>
 </html>
