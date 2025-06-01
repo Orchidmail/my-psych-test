@@ -1,11 +1,12 @@
 <!-- 5.html – 내 안의 숨겨진 MBTI는? -->
 <!DOCTYPE html>
+
 <html lang="ko">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>내 안의 숨겨진 MBTI는?</title>
-  <style>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>내 안의 숨겨진 MBTI는?</title>
+<style>
     body { font-family: 'Noto Sans KR', sans-serif; max-width: 480px; margin: 30px auto; padding: 20px; background: #f9f9f9; color: #333; }
     h1 { text-align: center; color: #1e88e5; }
     #question-box, #result-box { background: white; padding: 20px; border-radius: 12px; box-shadow: 0 3px 8px rgba(0,0,0,0.1); }
@@ -16,21 +17,21 @@
   </style>
 </head>
 <body>
-  <h1>내 안의 숨겨진 MBTI는?</h1>
-  <div id="question-box">
-    <h2 id="question">질문</h2>
-    <button id="btn0"></button>
-    <button id="btn1"></button>
-    <button id="btn2"></button>
-    <button id="btn3"></button>
-  </div>
-  <div id="result-box">
-    <h2>당신의 숨겨진 MBTI는...</h2>
-    <p id="result-text"></p>
-    <button id="restart-btn">다시 하기</button>
-    <button onclick="location.href='index.html'">메인 화면으로</button>
-  </div>
-  <script>
+<h1>내 안의 숨겨진 MBTI는?</h1>
+<div id="question-box">
+<h2 id="question">질문</h2>
+<button id="btn0"></button>
+<button id="btn1"></button>
+<button id="btn2"></button>
+<button id="btn3"></button>
+</div>
+<div id="result-box">
+<h2>당신의 숨겨진 MBTI는...</h2>
+<p id="result-text"></p>
+<button id="restart-btn">다시 하기</button>
+<button onclick="location.href='index.html'">메인 화면으로</button>
+</div>
+<script>
     const questions = [
       { q: "새로운 사람을 만날 때 당신은?", options: [
         { text: "에너지 넘치게 말 걸고 친해진다", type: "ENFP" },
