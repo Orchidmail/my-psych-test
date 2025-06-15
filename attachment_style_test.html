@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>나의 관계 애착 유형 테스트</title>
+    <meta name="description" content="나의 애착 유형(안정, 불안, 회피)을 알아보고, 관계 속 나의 모습을 깊이 있게 이해해보세요.">
+    <style>
+        body { font-family: 'Malgun Gothic', sans-serif; line-height: 1.6; color: #333; max-width: 800px; margin: 0 auto; padding: 20px; }
+        h1, h2, h3 { color: #2c3e50; }
+        h1 { font-size: 2.2em; margin-bottom: 20px; text-align: center; }
+        h2 { font-size: 1.8em; margin-top: 30px; margin-bottom: 15px; border-bottom: 2px solid #eee; padding-bottom: 5px; }
+        h3 { font-size: 1.4em; margin-top: 25px; margin-bottom: 10px; color: #34495e; }
+        p { margin-bottom: 10px; }
+        ul { list-style-type: disc; margin-left: 20px; margin-bottom: 10px; }
+        ol { list-style-type: decimal; margin-left: 20px; margin-bottom: 10px; }
+        strong { color: #e74c3c; }
+        .highlight { background-color: #f9f9f9; padding: 15px; border-left: 5px solid #3498db; margin-bottom: 20px; border-radius: 5px; }
+        .note { color: #7f8c8d; font-size: 0.9em; margin-top: 10px; }
+        img { max-width: 100%; height: auto; display: block; margin: 20px auto; border-radius: 8px; }
+
+        /* 헤더/푸터 스타일 (index.html에서 복사) */
+        header { text-align: center; padding: 20px 0; border-bottom: 1px solid #eee; }
+        header h1 { margin: 0; }
+        header h1 a { text-decoration: none; color: #2c3e50; }
+        nav ul { list-style: none; padding: 0; display: flex; justify-content: center; margin-top: 15px; }
+        nav ul li { margin: 0 15px; }
+        nav ul li a { text-decoration: none; color: #34495e; font-weight: bold; }
+        nav ul li a:hover { color: #e74c3c; }
+        footer { text-align: center; padding: 20px 0; border-top: 1px solid #eee; margin-top: 40px; font-size: 0.9em; color: #777; }
+        footer ul { list-style: none; padding: 0; display: flex; justify-content: center; margin-bottom: 10px; }
+        footer ul li { margin: 0 10px; }
+        footer ul li a { text-decoration: none; color: #777; }
+        footer ul li a:hover { text-decoration: underline; color: #333; }
+
+        /* 테스트 전용 스타일 */
+        .test-form { background-color: #ffffff; padding: 30px; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
+        .question-item { margin-bottom: 25px; padding: 15px; border: 1px solid #e0e0e0; border-radius: 8px; background-color: #fdfdfd; }
+        .question-item p { font-size: 1.1em; font-weight: bold; margin-bottom: 15px; color: #34495e; }
+        .options label { display: block; margin-bottom: 10px; padding: 10px; border: 1px solid #dcdcdc; border-radius: 5px; cursor: pointer; background-color: #ffffff; transition: background-color 0.2s; }
+        .options label:hover { background-color: #f0f8ff; border-color: #3498db; }
+        .options input[type="radio"] { margin-right: 10px; accent-color: #3498db; }
+        .submit-button-container { text-align: center; margin-top: 40px; }
+        .submit-button { background-color: #3498db; color: white; padding: 15px 30px; font-size: 1.2em; border: none; border-radius: 8px; cursor: pointer; transition: background-color 0.3s ease; }
+        .submit-button:hover { background-color: #2980b9; }
+
+        /* 결과 표시 영역 (초기에는 숨김, JS로 표시) */
+        #result-area { display: none; margin-top: 40px; padding: 30px; border-radius: 10px; text-align: center; }
+        #result-area h2 { margin-bottom: 20px; }
+        #result-area p { font-size: 1.1em; }
+        /* 유형별 결과 스타일 */
+        .secure-result { border: 2px solid #28a745; background-color: #e6ffe6; }
+        .anxious-result { border: 2px solid #ffc107; background-color: #fff8e1; }
+        .avoidant-result { border: 2px solid #6c757d; background-color: #f8f9fa; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1><a href="https://orchidmail.github.io/my-psych-test">My Psych Test</a></h1>
+        <nav>
+            <ul>
+                <li><a href="https://orchidmail.github.io/my-psych-test">홈</a></li>
+                <li><a href="index.html#test-categories">심리 테스트</a></li>
+                <li><a href="index.html#latest-blog-posts">블로그</a></li>
+                <li><a href="about.html">사이트 소개</a></li>
+                <li><a href="contact.html">문의하기</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <h1>나의 관계 애착 유형 테스트</h1>
+        <p>애착 유형은 우리가 어린 시절 주 양육자와의 관계를 통해 형성한, 타인과 친밀한 관계를 맺는 방식을 의미합니다. 이 유형은 성인이 되어서도 우리의 연인 관계, 친구 관계 등 다양한 인간관계에 큰 영향을 미칩니다. 이 테스트를 통해 당신의 애착 유형을 파악하고, 관계 속에서 반복되는 패턴의 원인을 이해해보세요.</p>
+        <p>총 12개의 질문으로 구성되어 있으며, 각 질문에 당신에게 가장 가깝다고 생각되는 답변을 선택해 주세요.</p>
+
+        <form id="attachmentStyleTestForm" class="test-form">
+            <!-- Question 1 -->
+            <div class="question-item">
+                <p>1. 나는 다른 사람과 정서적으로 가까워지는 것이 비교적 쉽고 편안하게 느껴진다.</p>
+                <div class="options">
+                    <label><input type="radio" name="q1" value="secure"> A. 네, 그렇습니다.</label>
+                    <label><input type="radio" name="q1" value="insecure"> B. 아니요, 어렵거나 불편할 때가 많습니다.</label>
+                </div>
+            </div>
+
+            <!-- Question 2 -->
+            <div class="question-item">
+                <p>2. 연인이나 가까운 친구가 나를 정말로 사랑하는지, 혹은 나를 떠나지 않을까 걱정할 때가 많다.</p>
+                <div class="options">
+                    <label><input type="radio" name="q2" value="anxious"> A. 네, 자주 걱정하는 편입니다.</label>
+                    <label><input type="radio" name="q2" value="not_anxious"> B. 아니요, 별로 걱정하지 않습니다.</label>
+                </div>
+            </div>
+
+            <!-- Question 3 -->
+            <div class="question-item">
+                <p>3. 나는 다른 사람에게 의지하기보다 스스로 문제를 해결하는 것이 더 편하다.</p>
+                <div class="options">
+                    <label><input type="radio" name="q3" value="avoidant"> A. 네, 혼자 해결하는 것이 편합니다.</label>
+                    <label><input type="radio" name="q3" value="not_avoidant"> B. 아니요, 다른 사람에게 의지하는 것도 괜찮습니다.</label>
+                </div>
+            </div>
+
+            <!-- Question 4 -->
+            <div class="question-item">
+                <p>4. 상대방이 나에게 너무 가까워지려고 하면, 나는 약간 거리를 두고 싶어진다.</p>
+                <div class="options">
+                    <label><input type="radio" name="q4" value="avoidant"> A. 네, 그럴 때가 있습니다.</label>
+                    <label><input type="radio" name="q4" value="not_avoidant"> B. 아니요, 더 가까워지는 것이 좋습니다.</label>
+                </div>
+            </div>
+            
+            <!-- Question 5 -->
+            <div class="question-item">
+                <p>5. 나는 상대방이 나를 진심으로 아끼는지 확인하고 싶어서 애정을 갈구하거나 때로는 집착하게 된다.</p>
+                <div class="options">
+                    <label><input type="radio" name="q5" value="anxious"> A. 네, 그런 경향이 있습니다.</label>
+                    <label><input type="radio" name="q5" value="not_anxious"> B. 아니요, 그렇지 않습니다.</label>
+                </div>
+            </div>
+
+            <!-- Question 6 -->
+            <div class="question-item">
+                <p>6. 나는 다른 사람들과의 관계에서 비교적 안정감과 신뢰를 느끼는 편이다.</p>
+                <div class="options">
+                    <label><input type="radio" name="q6" value="secure"> A. 네, 그렇습니다.</label>
+                    <label><input type="radio" name="q6" value="insecure"> B. 아니요, 불안하거나 불신이 들 때가 있습니다.</label>
+                </div>
+            </div>
+            
+            <!-- Question 7 -->
+            <div class="question-item">
+                <p>7. 관계에서 갈등이 생겼을 때, 감정적으로 압도당하는 느낌이 들어 대화를 피하고 싶을 때가 있다.</p>
+                <div class="options">
+                    <label><input type="radio" name="q7" value="avoidant"> A. 네, 피하고 싶을 때가 많습니다.</label>
+                    <label><input type="radio" name="q7" value="not_avoidant"> B. 아니요, 대화를 통해 해결하려고 합니다.</label>
+                </div>
+            </div>
+
+            <!-- Question 8 -->
+            <div class="question-item">
+                <p>8. 상대방의 기분이나 반응에 매우 민감하며, 그에 따라 내 기분도 쉽게 변한다.</p>
+                <div class="options">
+                    <label><input type="radio" name="q8" value="anxious"> A. 네, 매우 민감한 편입니다.</label>
+                    <label><input type="radio" name="q8" value="not_anxious"> B. 아니요, 크게 영향을 받지 않습니다.</label>
+                </div>
+            </div>
+
+            <!-- Question 9 -->
+            <div class="question-item">
+                <p>9. 나는 혼자 있는 시간을 즐기며, 때로는 관계보다 나의 독립성이 더 중요하다고 느낀다.</p>
+                <div class="options">
+                    <label><input type="radio" name="q9" value="avoidant"> A. 네, 그렇습니다.</label>
+                    <label><input type="radio" name="q9" value="not_avoidant"> B. 아니요, 관계가 더 중요하다고 생각합니다.</label>
+                </div>
+            </div>
+
+            <!-- Question 10 -->
+            <div class="question-item">
+                <p>10. 나는 상대방과의 관계에서 버림받을 것에 대한 두려움이 거의 없다.</p>
+                <div class="options">
+                    <label><input type="radio" name="q10" value="secure"> A. 네, 그렇습니다.</label>
+                    <label><input type="radio" name="q10" value="insecure"> B. 아니요, 두려움을 느낄 때가 있습니다.</label>
+                </div>
+            </div>
+
+            <!-- Question 11 -->
+            <div class="question-item">
+                <p>11. 나는 연인이나 친구에게 나의 속마음이나 약한 모습을 드러내는 것이 어렵다.</p>
+                <div class="options">
+                    <label><input type="radio" name="q11" value="avoidant"> A. 네, 어려운 편입니다.</label>
+                    <label><input type="radio" name="q11" value="not_avoidant"> B. 아니요, 솔직하게 드러낼 수 있습니다.</label>
+                </div>
+            </div>
+
+            <!-- Question 12 -->
+            <div class="question-item">
+                <p>12. 관계가 끝날지도 모른다는 생각 때문에 상대방에게 지나치게 맞추려고 노력한 적이 있다.</p>
+                <div class="options">
+                    <label><input type="radio" name="q12" value="anxious"> A. 네, 그런 적이 있습니다.</label>
+                    <label><input type="radio" name="q12" value="not_anxious"> B. 아니요, 그렇게까지 하지는 않습니다.</label>
+                </div>
+            </div>
+            
+            <div class="submit-button-container">
+                <button type="submit" class="submit-button">결과 확인하기</button>
+            </div>
+        </form>
+
+        <!-- 결과가 표시될 영역 -->
+        <div id="result-area">
+            <h2>당신의 관계 애착 유형은 <span id="attachmentStyleResult"></span>입니다!</h2>
+            <p id="attachmentStyleDescription"></p>
+            <div class="highlight">
+                <h3>더 알아보기</h3>
+                <p id="attachmentStyleAdvice"></p>
+            </div>
+            <p class="note">이 결과는 당신의 관계 패턴을 이해하는 데 도움을 주기 위한 참고 자료입니다. 자신의 유형을 이해하고, 더 건강한 관계를 만들어가는 시작점이 되기를 바랍니다.</p>
+        </div>
+
+        <h2>애착 유형이란? 유형별 특징 알아보기</h2>
+        <p>애착 유형은 보통 <strong>안정형, 불안형, 회피형</strong> 세 가지로 나뉩니다. 이들은 각각 관계에서 다른 생각과 행동 패턴을 보입니다.</p>
+        <ul>
+            <li><strong>안정형 (Secure Attachment):</strong> 자신과 타인에 대해 긍정적인 시각을 가집니다. 관계에서 친밀감을 편안하게 느끼며, 독립성과 의존성 사이에서 건강한 균형을 유지합니다. 갈등 상황에서도 건설적인 대화를 통해 문제를 해결하려 합니다.</li>
+            <li><strong>불안형 (Anxious Attachment):</strong> 자신에 대한 부정적인 시각과 타인에 대한 긍정적인 시각을 가집니다. 관계에서 버림받을 것에 대한 두려움이 크고, 상대방의 사랑과 인정을 끊임없이 갈구하는 경향이 있습니다. 감정 기복이 클 수 있습니다.</li>
+            <li><strong>회피형 (Avoidant Attachment):</strong> 자신에 대한 긍정적인 시각과 타인에 대한 부정적인 시각을 가집니다. 정서적 친밀감을 불편해하고, 관계에서 독립성을 매우 중요하게 생각합니다. 갈등 상황에서 감정 표현을 억제하거나 회피하려는 경향이 있습니다.</li>
+        </ul>
+
+        <h2>함께 보면 좋은 심리 테스트 및 블로그 글</h2>
+        <ul>
+            <li><a href="love_language_test.html">나의 사랑의 언어 테스트: 나는 어떻게 사랑하고 사랑받을까?</a></li>
+            <li><a href="relationship_style_test.html">나의 관계 의사소통 및 갈등 해결 스타일 테스트</a></li>
+            <li><a href="blog_post_attachment_improve.html">불안정한 애착 유형 극복하고 건강한 관계 만들기 (블로그 예시)</a></li>
+        </ul>
+    </main>
+
+    <footer>
+        <ul>
+            <li><a href="privacy.html">개인정보처리방침</a></li>
+            <li><a href="terms.html">이용약관</a></li>
+            <li><a href="about.html">사이트 소개</a></li>
+            <li><a href="contact.html">문의하기</a></li>
+        </ul>
+        <p>Copyright © 2025 My Psych Test All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        document.getElementById('attachmentStyleTestForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const scores = { secure: 0, anxious: 0, avoidant: 0 };
+            let answeredQuestions = 0;
+            const totalQuestions = 12;
+
+            for (let i = 1; i <= totalQuestions; i++) {
+                const checked = document.querySelector(`input[name="q${i}"]:checked`);
+                if (checked) {
+                    answeredQuestions++;
+                    const value = checked.value;
+                    if (value === 'secure') {
+                        scores.secure++;
+                    } else if (value === 'anxious') {
+                        scores.anxious++;
+                    } else if (value === 'avoidant') {
+                        scores.avoidant++;
+                    } else if (value === 'insecure') {
+                        // secure의 반대 질문
+                    } else if (value === 'not_anxious') {
+                        // anxious의 반대 질문
+                    } else if (value === 'not_avoidant') {
+                        // avoidant의 반대 질문
+                    }
+                }
+            }
+
+            if (answeredQuestions < totalQuestions) {
+                alert('모든 질문에 답변해주세요!');
+                return;
+            }
+
+            // 가장 높은 점수를 받은 유형 찾기
+            let dominantStyle = 'secure'; // 기본값
+            if (scores.anxious > scores.secure && scores.anxious >= scores.avoidant) {
+                dominantStyle = 'anxious';
+            } else if (scores.avoidant > scores.secure && scores.avoidant > scores.anxious) {
+                dominantStyle = 'avoidant';
+            }
+            
+            // 불안과 회피가 비슷하게 높으면 혼란형(공포회피형)으로 간주할 수 있지만, 여기서는 단순화하여 둘 중 더 높은 쪽으로 판단
+            if (scores.anxious > 2 && scores.avoidant > 2 && Math.abs(scores.anxious - scores.avoidant) <= 1) {
+                 dominantStyle = 'disorganized';
+            }
+
+
+            let resultText = '';
+            let descriptionText = '';
+            let adviceText = '';
+            let resultClass = '';
+
+            switch (dominantStyle) {
+                case 'secure':
+                    resultText = '안정형 (Secure)';
+                    descriptionText = `당신은 관계에서 자신감과 신뢰를 바탕으로 건강한 유대감을 형성하는 '안정형'에 가깝습니다. 당신은 친밀감을 편안하게 느끼면서도, 상대방과 건강한 거리를 유지할 줄 압니다.`;
+                    adviceText = `당신의 안정적인 애착은 관계의 훌륭한 자산입니다. 파트너의 다른 애착 유형을 이해하고 포용하려는 노력을 더한다면 더욱 성숙한 관계를 만들 수 있습니다.`;
+                    resultClass = 'secure-result';
+                    break;
+                case 'anxious':
+                    resultText = '불안형 (Anxious)';
+                    descriptionText = `당신은 관계에서 상대방의 사랑과 인정을 강하게 갈망하며, 버림받을 것에 대한 두려움을 느끼는 '불안형'에 가깝습니다. 당신은 매우 헌신적이고 깊은 친밀감을 원하지만, 때로는 관계에 집착하거나 상대방의 반응에 쉽게 상처받을 수 있습니다.`;
+                    adviceText = `자신의 가치를 스스로 인정하고, 관계 밖에서 자신의 삶을 채우는 활동을 찾아보세요. 상대방을 믿고, 불안한 감정이 들 때 성급하게 반응하기보다 자신의 감정을 먼저 들여다보는 연습이 필요합니다.`;
+                    resultClass = 'anxious-result';
+                    break;
+                case 'avoidant':
+                    resultText = '회피형 (Avoidant)';
+                    descriptionText = `당신은 관계에서 감정적인 친밀감보다 독립성을 더 중요하게 생각하는 '회피형'에 가깝습니다. 당신은 스스로 문제를 해결하는 데 능숙하지만, 정서적으로 깊이 연결되거나 자신의 약한 모습을 드러내는 것을 불편해할 수 있습니다.`;
+                    adviceText = `가까운 관계에서 의지하는 것이 나약함이 아님을 기억하세요. 작은 것부터 자신의 감정을 솔직하게 표현하고, 상대방의 감정적 지지를 받아들이는 연습을 통해 더 깊은 유대감을 경험할 수 있습니다.`;
+                    resultClass = 'avoidant-result';
+                    break;
+                case 'disorganized':
+                    resultText = '혼란형 (공포-회피형)';
+                    descriptionText = `당신은 친밀감을 원하면서도 동시에 두려워하는 복합적인 특징을 가진 '혼란형'에 가깝습니다. 관계에서 가까워지고 싶지만, 가까워지면 상처받을까 봐 밀어내는 등 예측하기 어려운 행동 패턴을 보일 수 있습니다.`;
+                    adviceText = `과거의 상처가 현재 관계에 미치는 영향을 이해하는 것이 중요합니다. 자신의 감정 패턴을 꾸준히 관찰하고, 신뢰할 수 있는 관계 속에서 점진적으로 마음을 여는 연습이 필요합니다. 전문가의 도움을 받는 것도 좋은 방법입니다.`;
+                    resultClass = 'avoidant-result'; // 스타일은 회피형과 유사하게
+                    break;
+            }
+
+            const resultArea = document.getElementById('result-area');
+            resultArea.className = ''; // 기존 클래스 초기화
+            resultArea.classList.add(resultClass); // 새로운 결과 클래스 추가
+            document.getElementById('attachmentStyleResult').innerText = resultText;
+            document.getElementById('attachmentStyleDescription').innerText = descriptionText;
+            document.getElementById('attachmentStyleAdvice').innerText = adviceText;
+
+            resultArea.style.display = 'block';
+            resultArea.scrollIntoView({ behavior: 'smooth' });
+        });
+    </script>
+</body>
+</html>
