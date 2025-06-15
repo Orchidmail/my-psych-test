@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>나를 알아가는 심리 탐험의 시작, My Psych Test</title>
+    <meta name="description" content="다양하고 신뢰할 수 있는 심리 테스트와 심층 분석으로 당신의 성격, 관계, 감정을 탐색하고 이해하는 여정에 함께합니다.">
+    <style>
+        /* 기본 스타일 유지 */
+        body { font-family: 'Malgun Gothic', sans-serif; line-height: 1.6; color: #333; max-width: 800px; margin: 0 auto; padding: 20px; }
+        h1, h2, h3 { color: #2c3e50; }
+        h1 { font-size: 2.2em; margin-bottom: 20px; text-align: center; }
+        h2 { font-size: 1.8em; margin-top: 30px; margin-bottom: 15px; border-bottom: 2px solid #eee; padding-bottom: 5px; }
+        h3 { font-size: 1.4em; margin-top: 25px; margin-bottom: 10px; color: #34495e; }
+        p { margin-bottom: 10px; }
+        ul { list-style-type: disc; margin-left: 20px; margin-bottom: 10px; }
+        ol { list-style-type: decimal; margin-left: 20px; margin-bottom: 10px; }
+        strong { color: #e74c3c; }
+        .highlight { background-color: #f9f9f9; padding: 15px; border-left: 5px solid #3498db; margin-bottom: 20px; border-radius: 5px; }
+        .note { color: #7f8c8d; font-size: 0.9em; margin-top: 10px; }
+        img { max-width: 100%; height: auto; display: block; margin: 20px auto; border-radius: 8px; }
+
+        /* 새로 추가되거나 수정된 레이아웃 관련 스타일 */
+        header { text-align: center; padding: 20px 0; border-bottom: 1px solid #eee; }
+        header h1 { margin: 0; }
+        header h1 a { text-decoration: none; color: #2c3e50; }
+        nav ul { list-style: none; padding: 0; display: flex; justify-content: center; margin-top: 15px; }
+        nav ul li { margin: 0 15px; }
+        nav ul li a { text-decoration: none; color: #34495e; font-weight: bold; }
+        nav ul li a:hover { color: #e74c3c; }
+
+        .hero-section { text-align: center; padding: 40px 0; background-color: #fcfcfc; border-bottom: 1px solid #eee; margin-bottom: 30px; }
+        .hero-section h2 { font-size: 2.5em; color: #3498db; margin-bottom: 15px; }
+        .hero-section p { font-size: 1.1em; line-height: 1.8; color: #555; }
+
+        .test-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-bottom: 30px; }
+        .test-item { border: 1px solid #ddd; border-radius: 8px; overflow: hidden; text-align: center; padding-bottom: 15px; background-color: #fff; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        .test-item img { width: 100%; height: 150px; object-fit: cover; margin: 0 0 10px 0; border-radius: 0; } /* 이미지 스타일 조정 */
+        .test-item h4 { margin: 0 10px 10px 10px; font-size: 1.2em; }
+        .test-item h4 a { text-decoration: none; color: #2c3e50; }
+        .test-item h4 a:hover { color: #3498db; }
+
+        .category-section ul { list-style-type: none; padding: 0; }
+        .category-section ul li { margin-bottom: 8px; }
+        .category-section ul li a { text-decoration: none; color: #34495e; }
+        .category-section ul li a:hover { text-decoration: underline; color: #e74c3c; }
+
+        .latest-posts ul { list-style-type: none; padding: 0; }
+        .latest-posts ul li { margin-bottom: 10px; }
+        .latest-posts ul li a { text-decoration: none; color: #34495e; font-weight: bold; }
+        .latest-posts ul li a:hover { text-decoration: underline; color: #e74c3c; }
+
+        footer { text-align: center; padding: 20px 0; border-top: 1px solid #eee; margin-top: 40px; font-size: 0.9em; color: #777; }
+        footer ul { list-style: none; padding: 0; display: flex; justify-content: center; margin-bottom: 10px; }
+        footer ul li { margin: 0 10px; }
+        footer ul li a { text-decoration: none; color: #777; }
+        footer ul li a:hover { text-decoration: underline; color: #333; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1><a href="/">My Psych Test</a></h1>
+        <nav>
+            <ul>
+                <li><a href="/">홈</a></li>
+                <li><a href="#test-categories">심리 테스트</a></li>
+                <li><a href="#latest-blog-posts">블로그</a></li> <li><a href="about.html">사이트 소개</a></li> <li><a href="contact.html">문의하기</a></li> </ul>
+        </nav>
+    </header>
+
+    <div class="hero-section">
+        <h2>나를 알아가는 심리 탐험의 시작</h2>
+        <p>복잡한 나를 이해하고, 타인과의 관계를 개선하며, 잠재된 능력을 발견하세요.<br>My Psych Test가 다양한 심리 테스트와 심층 분석으로 당신의 여정에 함께합니다.</p>
+    </div>
+
+    <main>
+        <h2>인기 / 추천 심리 테스트</h2>
+        <div class="test-grid">
+            <div class="test-item">
+                <img src="https://via.placeholder.com/200x150?text=MBTI+Test" alt="MBTI 유형 테스트 썸네일">
+                <h4><a href="mbti_test.html">MBTI 유형 테스트</a></h4>
+            </div>
+            <div class="test-item">
+                <img src="https://via.placeholder.com/200x150?text=Relationship+Test" alt="관계 심리 테스트 썸네일">
+                <h4><a href="relationship_test.html">나의 관계 유형 테스트</a></h4>
+            </div>
+            <div class="test-item">
+                <img src="https://via.placeholder.com/200x150?text=Emotion+Test" alt="감정 표현 테스트 썸네일">
+                <h4><a href="emotion_expression_test.html">나는 감정을 어떻게 표현할까?</a></h4>
+            </div>
+            <div class="test-item">
+                <img src="https://via.placeholder.com/200x150?text=Stress+Test" alt="스트레스 지수 테스트 썸네일">
+                <h4><a href="stress_level_test.html">나의 스트레스 지수 테스트</a></h4>
+            </div>
+         <div class="test-item">
+        <img src="https://via.placeholder.com/200x150?text=Love+Test"" alt="사랑의 언어 테스트 이미지"> 
+        <h4> <a href="love_language_test.html">나의 사랑의 언어 테스트</h4></a>
+        </div>  
+       
+        <div class="test-item">
+         <img src="https://via.placeholder.com/300x200?text=Attachment+Style+Test" alt="애착 유형 테스트 이미지">
+          <h4><a href="attachment_style_test.html">나의 관계 애착 유형 테스트</h4>     </a>
+</div>      
+
+
+</div>
+
+
+
+        <h2 id="test-categories">모든 심리 테스트</h2>
+        <div class="category-section">
+            <h3>성격 및 자기 이해</h3>
+            <ul>
+                <li><a href="mbti_test.html">MBTI 유형 테스트: 나를 알아가는 심리 분석</a></li>
+                <li><a href="enneagram_test.html">에니어그램 성격 유형 테스트: 9가지 본능 탐구</a></li>
+                <li><a href="big5_test.html">빅파이브(Big 5) 성격 테스트: 과학적인 성격 분석</a></li>
+                <li><a href="self_esteem_test.html">자존감 테스트: 나의 자존감은 건강할까?</a></li>
+                <li><a href="introvert_extrovert_test.html">내향인 vs 외향인 테스트: 나는 어느 쪽에 가까울까?</a></li>
+                </ul>
+
+            <h3>관계 및 연애 심리</h3>
+            <ul>
+                <li><a href="relationship_test.html">나의 연애 유형 테스트: 나는 어떤 스타일의 연애를 할까?</a></li>
+                <li><a href="attachment_style_test.html">애착 유형 테스트: 나의 애착 스타일은?</a></li>
+                <li><a href="communication_style_test.html">소통 방식 테스트: 나는 어떻게 대화하고 있을까?</a></li>
+                <li><a href="love_language_test.html">사랑의 5가지 언어 테스트: 나의 사랑 표현 방식은?</a></li>
+                </ul>
+
+            <h3>감정 및 멘탈 건강</h3>
+            <ul>
+                <li><a href="emotion_test.html">나는 감정을 어떻게 표현할까? 감정 표현 유형 테스트</a></li>
+                <li><a href="stress_test.html">나의 스트레스 지수 테스트: 스트레스 관리법 찾기</a></li>
+                <li><a href="burnout_test.html">번아웃 증후군 테스트: 혹시 나도 번아웃?</a></li>
+                <li><a href="anxiety_test.html">불안감 테스트: 나의 불안 수준은 어느 정도일까?</a></li>
+                </ul>
+
+            <h3>직업 및 진로</h3>
+            <ul>
+                <li><a href="career_aptitude_test.html">직업 적성 테스트: 나에게 맞는 직업은 무엇일까?</a></li>
+                <li><a href="leadership_style_test.html">나의 리더십 스타일 테스트: 어떤 리더가 되고 싶니?</a></li>
+                </ul>
+
+            </div>
+
+        <h2 id="latest-blog-posts">최신 블로그 글</h2>
+        <div class="latest-posts">
+            <ul>
+                <li><a href="blog_post_summer_paint.html">[예약] 여름철 차량 도장면 보호법 (햇빛 차단 · 스크래치 예방 · 광택 유지)</a></li>
+                <li><a href="blog_post_summer_battery2.html">[예약] 여름철 차량 배터리 관리법2 (과열 방지 · 수명 연장 · 방전 예방법)</a></li>
+                <li><a href="blog_post_summer_coolant.html">여름철 차량 냉각수 점검 및 보충법 (엔진 과열 예방 · 냉각수 종류 · 보충 요령)</a></li>
+                <li><a href="blog_post_summer_parking.html">여름철 차량 주차 시 주의사항 (직사광선 차단 · 타이어 손상 예방 · 내부 온도 낮추는 팁)</a></li>
+            </ul>
+            <p class="note">더 많은 블로그 글은 <a href="blog.html">블로그 페이지</a>에서 확인하세요.</p>
+        </div>
+
+    </main>
+
+    <footer>
+        <ul>
+            <li><a href="privacy.html">개인정보처리방침</a></li>
+            <li><a href="terms.html">이용약관</a></li>
+            <li><a href="about.html">사이트 소개</a></li>
+            <li><a href="contact.html">문의하기</a></li>
+        </ul>
+        <p>Copyright © 2025 My Psych Test All Rights Reserved.</p>
+    </footer>
+
+</body>
+</html>

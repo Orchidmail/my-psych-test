@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>나의 스트레스 지수 테스트</title>
+    <meta name="description" content="나의 스트레스 지수를 알아보고, 스트레스가 건강에 미치는 영향과 효과적인 스트레스 관리법을 알아보세요.">
+    <style>
+        body { font-family: 'Malgun Gothic', sans-serif; line-height: 1.6; color: #333; max-width: 800px; margin: 0 auto; padding: 20px; }
+        h1, h2, h3 { color: #2c3e50; }
+        h1 { font-size: 2.2em; margin-bottom: 20px; text-align: center; }
+        h2 { font-size: 1.8em; margin-top: 30px; margin-bottom: 15px; border-bottom: 2px solid #eee; padding-bottom: 5px; }
+        h3 { font-size: 1.4em; margin-top: 25px; margin-bottom: 10px; color: #34495e; }
+        p { margin-bottom: 10px; }
+        ul { list-style-type: disc; margin-left: 20px; margin-bottom: 10px; }
+        ol { list-style-type: decimal; margin-left: 20px; margin-bottom: 10px; }
+        strong { color: #e74c3c; }
+        .highlight { background-color: #f9f9f9; padding: 15px; border-left: 5px solid #3498db; margin-bottom: 20px; border-radius: 5px; }
+        .note { color: #7f8c8d; font-size: 0.9em; margin-top: 10px; }
+        img { max-width: 100%; height: auto; display: block; margin: 20px auto; border-radius: 8px; }
+
+        /* 헤더/푸터 스타일 (기존 파일에서 복사) */
+        header { text-align: center; padding: 20px 0; border-bottom: 1px solid #eee; }
+        header h1 { margin: 0; }
+        header h1 a { text-decoration: none; color: #2c3e50; }
+        nav ul { list-style: none; padding: 0; display: flex; justify-content: center; margin-top: 15px; }
+        nav ul li { margin: 0 15px; }
+        nav ul li a { text-decoration: none; color: #34495e; font-weight: bold; }
+        nav ul li a:hover { color: #e74c3c; }
+        footer { text-align: center; padding: 20px 0; border-top: 1px solid #eee; margin-top: 40px; font-size: 0.9em; color: #777; }
+        footer ul { list-style: none; padding: 0; display: flex; justify-content: center; margin-bottom: 10px; }
+        footer ul li { margin: 0 10px; }
+        footer ul li a { text-decoration: none; color: #777; }
+        footer ul li a:hover { text-decoration: underline; color: #333; }
+
+        /* 테스트 전용 스타일 */
+        .test-form { background-color: #ffffff; padding: 30px; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
+        .question-item { margin-bottom: 25px; padding: 15px; border: 1px solid #e0e0e0; border-radius: 8px; background-color: #fdfdfd; }
+        .question-item p { font-size: 1.1em; font-weight: bold; margin-bottom: 15px; color: #34495e; }
+        .options label { display: block; margin-bottom: 10px; padding: 10px; border: 1px solid #dcdcdc; border-radius: 5px; cursor: pointer; background-color: #ffffff; transition: background-color 0.2s; }
+        .options label:hover { background-color: #f0f8ff; border-color: #3498db; }
+        .options input[type="radio"] { margin-right: 10px; accent-color: #3498db; }
+        .submit-button-container { text-align: center; margin-top: 40px; }
+        .submit-button { background-color: #3498db; color: white; padding: 15px 30px; font-size: 1.2em; border: none; border-radius: 8px; cursor: pointer; transition: background-color 0.3s ease; }
+        .submit-button:hover { background-color: #2980b9; }
+
+        /* 결과 표시 영역 (초기에는 숨김, JS로 표시) */
+        #result-area { display: none; margin-top: 40px; padding: 30px; border-radius: 10px; text-align: center; }
+        #result-area h2 { margin-bottom: 20px; }
+        #result-area p { font-size: 1.1em; }
+        /* 결과 스타일 */
+        .low-stress { border: 2px solid #28a745; background-color: #e6ffe6; } /* 낮은 스트레스 */
+        .moderate-stress { border: 2px solid #ffc107; background-color: #fff8e1; } /* 중간 스트레스 */
+        .high-stress { border: 2px solid #dc3545; background-color: #ffe6e6; } /* 높은 스트레스 */
+        .very-high-stress { border: 2px solid #6c757d; background-color: #f8f9fa; } /* 매우 높은 스트레스 */
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1><a href="/">My Psych Test</a></h1>
+        <nav>
+            <ul>
+                <li><a href="/">홈</a></li>
+                <li><a href="index.html#test-categories">심리 테스트</a></li>
+                <li><a href="index.html#latest-blog-posts">블로그</a></li>
+                <li><a href="about.html">사이트 소개</a></li>
+                <li><a href="contact.html">문의하기</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <h1>나의 스트레스 지수 테스트</h1>
+        <p>현대 사회에서 스트레스는 피할 수 없는 부분이 되었습니다. 하지만 스트레스가 지속되면 신체적, 정신적 건강에 심각한 영향을 미칠 수 있습니다. 이 테스트를 통해 당신의 현재 스트레스 수준을 객관적으로 파악하고, 스트레스 관리에 대한 인식을 높이는 것이 중요합니다.</p>
+        <p>총 15개의 질문에 대해 지난 한 달 동안 당신이 얼마나 자주 경험했는지 답해주세요. 솔직한 답변이 더 정확한 결과를 얻는 데 도움이 됩니다.</p>
+
+        <form id="stressLevelTestForm" class="test-form">
+            <div class="question-item">
+                <p>1. 예상치 못한 일 때문에 얼마나 자주 속상했나요?</p>
+                <div class="options">
+                    <label><input type="radio" name="q1" value="0"> 전혀 없었다</label>
+                    <label><input type="radio" name="q1" value="1"> 거의 없었다</label>
+                    <label><input type="radio" name="q1" value="2"> 가끔 있었다</label>
+                    <label><input type="radio" name="q1" value="3"> 자주 있었다</label>
+                    <label><input type="radio" name="q1" value="4"> 매우 자주 있었다</label>
+                </div>
+            </div>
+
+            <div class="question-item">
+                <p>2. 인생에서 중요한 일을 조절할 수 없다고 느낀 적이 얼마나 있었나요?</p>
+                <div class="options">
+                    <label><input type="radio" name="q2" value="0"> 전혀 없었다</label>
+                    <label><input type="radio" name="q2" value="1"> 거의 없었다</label>
+                    <label><input type="radio" name="q2" value="2"> 가끔 있었다</label>
+                    <label><input type="radio" name="q2" value="3"> 자주 있었다</label>
+                    <label><input type="radio" name="q2" value="4"> 매우 자주 있었다</label>
+                </div>
+            </div>
+
+            <div class="question-item">
+                <p>3. 얼마나 자주 긴장되고 스트레스를 받았다고 느꼈나요?</p>
+                <div class="options">
+                    <label><input type="radio" name="q3" value="0"> 전혀 없었다</label>
+                    <label><input type="radio" name="q3" value="1"> 거의 없었다</label>
+                    <label><input type="radio" name="q3" value="2"> 가끔 있었다</label>
+                    <label><input type="radio" name="q3" value="3"> 자주 있었다</label>
+                    <label><input type="radio" name="q3" value="4"> 매우 자주 있었다</label>
+                </div>
+            </div>
+
+            <div class="question-item">
+                <p>4. 개인적인 문제를 처리하는 능력에 대해 얼마나 자신감을 느꼈나요?</p>
+                <div class="options">
+                    <label><input type="radio" name="q4" value="4"> 매우 자주</label>
+                    <label><input type="radio" name="q4" value="3"> 자주</label>
+                    <label><input type="radio" name="q4" value="2"> 가끔</label>
+                    <label><input type="radio" name="q4" value="1"> 거의 없음</label>
+                     <label><input type="radio" name="q4" value="0"> 전혀 없음</label>
+                </div>
+            </div>
+
+            <div class="question-item">
+                <p>5. 일들이 당신의 뜻대로 된다고 얼마나 자주 느꼈나요?</p>
+                <div class="options">
+                     <label><input type="radio" name="q5" value="4"> 매우 자주</label>
+                    <label><input type="radio" name="q5" value="3"> 자주</label>
+                    <label><input type="radio" name="q5" value="2"> 가끔</label>
+                    <label><input type="radio" name="q5" value="1"> 거의 없음</label>
+                     <label><input type="radio" name="q5" value="0"> 전혀 없음</label>
+                </div>
+            </div>
+
+            <div class="question-item">
+                <p>6. 얼마나 자주 화를 억누를 수 있었나요?</p>
+                <div class="options">
+                    <label><input type="radio" name="q6" value="4"> 매우 자주</label>
+                    <label><input type="radio" name="q6" value="3"> 자주</label>
+                    <label><input type="radio" name="q6" value="2"> 가끔</label>
+                    <label><input type="radio" name="q6" value="1"> 거의 없음</label>
+                     <label><input type="radio" name="q6" value="0"> 전혀 없음</label>
+                </div>
+            </div>
+
+            <div class="question-item">
+                <p>7. 해야 할 일을 감당할 수 없다고 얼마나 자주 느꼈나요?</p>
+                <div class="options">
+                    <label><input type="radio" name="q7" value="0"> 전혀 없었다</label>
+                    <label><input type="radio" name="q7" value="1"> 거의 없었다</label>
+                    <label><input type="radio" name="q7" value="2"> 가끔 있었다</label>
+                    <label><input type="radio" name="q7" value="3"> 자주 있었다</label>
+                    <label><input type="radio" name="q7" value="4"> 매우 자주 있었다</label>
+                </div>
+            </div>
+
+            <div class="question-item">
+                <p>8. 기분이 매우 좋다고 얼마나 자주 느꼈나요?</p>
+                <div class="options">
+                    <label><input type="radio" name="q8" value="4"> 매우 자주</label>
+                    <label><input type="radio" name="q8" value="3"> 자주</label>
+                    <label><input type="radio" name="q8" value="2"> 가끔</label>
+                    <label><input type="radio" name="q8" value="1"> 거의 없음</label>
+                     <label><input type="radio" name="q8" value="0"> 전혀 없음</label>
+                </div>
+            </div>
+
+            <div class="question-item">
+                <p>9. 일이 잘 풀리지 않을 때 얼마나 자주 화를 냈나요?</p>
+                <div class="options">
+                    <label><input type="radio" name="q9" value="0"> 전혀 없었다</label>
+                    <label><input type="radio" name="q9" value="1"> 거의 없었다</label>
+                    <label><input type="radio" name="q9" value="2"> 가끔 있었다</label>
+                    <label><input type="radio" name="q9" value="3"> 자주 있었다</label>
+                    <label><input type="radio" name="q9" value="4"> 매우 자주 있었다</label>
+                </div>
+            </div>
+
+            <div class="question-item">
+                <p>10. 어려운 일이 과도하게 누적되어 극복할 수 없다고 얼마나 자주 느꼈나요?</p>
+                <div class="options">
+                    <label><input type="radio" name="q10" value="0"> 전혀 없었다</label>
+                    <label><input type="radio" name="q10" value="1"> 거의 없었다</label>
+                    <label><input type="radio" name="q10" value="2"> 가끔 있었다</label>
+                    <label><input type="radio" name="q10" value="3"> 자주 있었다</label>
+                    <label><input type="radio" name="q10" value="4"> 매우 자주 있었다</label>
+                </div>
+            </div>
+
+             <div class="question-item">
+                <p>11. 쉽게 짜증이 나고 기분 변화가 심한 편인가요?</p>
+                <div class="options">
+                    <label><input type="radio" name="q11" value="0"> 전혀 그렇지 않다</label>
+                    <label><input type="radio" name="q11" value="1"> 그렇지 않다</label>
+                    <label><input type="radio" name="q11" value="2"> 그렇다</label>
+                    <label><input type="radio" name="q11" value="3"> 매우 그렇다</label>
+                </div>
+            </div>
+
+            <div class="question-item">
+                <p>12. 잠들기 어렵거나 잠에서 자주 깨는 편인가요?</p>
+                <div class="options">
+                    <label><input type="radio" name="q12" value="0"> 전혀 그렇지 않다</label>
+                    <label><input type="radio" name="q12" value="1"> 그렇지 않다</label>
+                    <label><input type="radio" name="q12" value="2"> 그렇다</label>
+                    <label><input type="radio" name="q12" value="3"> 매우 그렇다</label>
+                </div>
+            </div>
+
+            <div class="question-item">
+                <p>13. 매사에 집중하기 어렵고, 일의 능률이 떨어진다고 느끼나요?</p>
+                <div class="options">
+                   <label><input type="radio" name="q13" value="0"> 전혀 그렇지 않다</label>
+                    <label><input type="radio" name="q13" value="1"> 그렇지 않다</label>
+                    <label><input type="radio" name="q13" value="2"> 그렇다</label>
+                    <label><input type="radio" name="q13" value="3"> 매우 그렇다</label>
+                </div>
+            </div>
+
+            <div class="question-item">
+                <p>14. 쉽게 피로감을 느끼는 편인가요?</p>
+                <div class="options">
+                    <label><input type="radio" name="q14" value="0"> 전혀 그렇지 않다</label>
+                    <label><input type="radio" name="q14" value="1"> 그렇지 않다</label>
+                    <label><input type="radio" name="q14" value="2"> 그렇다</label>
+                    <label><input type="radio" name="q14" value="3"> 매우 그렇다</label>
+                </div>
+            </div>
+
+             <div class="question-item">
+                <p>15. 최근에 소화불량, 두통, 근육통 등 신체적인 불편함을 자주 느끼나요?</p>
+                <div class="options">
+                    <label><input type="radio" name="q15" value="0"> 전혀 그렇지 않다</label>
+                    <label><input type="radio" name="q15" value="1"> 그렇지 않다</label>
+                    <label><input type="radio" name="q15" value="2"> 그렇다</label>
+                    <label><input type="radio" name="q15" value="3"> 매우 그렇다</label>
+                </div>
+            </div>
+
+            <div class="submit-button-container">
+                <button type="submit" class="submit-button">결과 확인하기</button>
+            </div>
+        </form>
+
+        <div id="result-area">
+            <h2>당신의 스트레스 지수는 <span id="stressLevelResult"></span>입니다!</h2>
+            <p id="stressLevelDescription"></p>
+            <div class="highlight">
+                <h3>스트레스 해소를 위한 조언</h3>
+                <p id="stressLevelAdvice"></p>
+            </div>
+            <p class="note">이 결과는 당신의 스트레스 수준을 파악하고, 건강한 삶을 위한 첫걸음을 내딛는 데 도움을 주기 위한 참고 자료입니다.</p>
+        </div>
+
+        <h2>스트레스, 왜 관리해야 할까요?</h2>
+        <p>스트레스는 만병의 근원이라고 불릴 만큼 다양한 건강 문제와 관련이 있습니다. 장기적인 스트레스는 다음과 같은 문제를 일으킬 수 있습니다.</p>
+        <ul>
+            <li><strong>신체적 건강 문제:</strong> 고혈압, 심혈관 질환, 소화 불량, 두통, 면역력 저하 등</li>
+            <li><strong>정신 건강 문제:</strong> 불안, 우울증, 수면 장애, 집중력 저하, 기억력 감퇴 등</li>
+            <li><strong>관계 문제:</strong> 짜증, 분노, 회피 등으로 인해 대인 관계에 어려움을 겪을 수 있습니다.</li>
+        </ul>
+
+        <h2>효과적인 스트레스 해소 및 관리 방법</h2>
+        <p>스트레스를 효과적으로 관리하기 위해서는 다음과 같은 방법들을 시도해볼 수 있습니다.</p>
+        <ol>
+            <li><strong>규칙적인 운동:</strong> 운동은 스트레스 호르몬을 감소시키고, 엔도르핀 분비를 촉진하여 기분을 좋게 만듭니다.</li>
+            <li><strong>충분한 수면:</strong> 수면 부족은 스트레스에 대한 민감도를 높입니다. 매일 7-8시간의 충분한 수면을 취하도록 노력하세요.</li>
+            <li><strong>건강한 식단:</strong> 균형 잡힌 식사는 신체적, 정신적 건강에 긍정적인 영향을 미칩니다.</li>
+            <li><strong>이완 기법:</strong> 명상, 요가, 심호흡 등은 스트레스를 줄이는 데 효과적입니다.</li>
+            <li><strong>취미 활동:</strong> 즐거운 활동은 스트레스를 잊게 하고, 삶의 만족도를 높여줍니다.</li>
+            <li><strong>사회적 지지:</strong> 친구, 가족, 연인과의 대화는 스트레스 해소에 큰 도움이 됩니다.</li>
+            <li><strong>전문가의 도움:</strong> 심각한 스트레스는 전문가의 상담이나 치료가 필요할 수 있습니다.</li>
+        </ol>
+
+        <h2>함께 보면 좋은 심리 테스트 및 블로그 글</h2>
+        <ul>
+            <li><a href="emotion_expression_test.html">나는 감정을 어떻게 표현할까? 나의 감정 표현 스타일 테스트</a></li>
+            <li><a href="relationship_style_test.html">나의 관계 의사소통 및 갈등 해결 스타일 테스트</a></li>
+             <li><a href="self_esteem_test.html">나의 자존감 수준은? 자존감 테스트</a></li>
+            <li><a href="blog_post_stress_management.html">일상생활 속 스트레스 관리법 (블로그 예시)</a></li>
+        </ul>
+    </main>
+
+    <footer>
+        <ul>
+            <li><a href="privacy.html">개인정보처리방침</a></li>
+            <li><a href="terms.html">이용약관</a></li>
+            <li><a href="about.html">사이트 소개</a></li>
+            <li><a href="contact.html">문의하기</a></li>
+        </ul>
+        <p>Copyright © 2025 My Psych Test All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        document.getElementById('stressLevelTestForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            let totalScore = 0;
+            let answeredQuestions = 0;
+            const totalQuestions = 15;
+
+            for (let i = 1; i <= totalQuestions; i++) {
+                const checked = document.querySelector(`input[name="q${i}"]:checked`);
+                if (checked) {
+                    answeredQuestions++;
+                    totalScore += parseInt(checked.value);
+                }
+            }
+
+            if (answeredQuestions < totalQuestions) {
+                alert('모든 질문에 답변해주세요!');
+                return;
+            }
+
+            let resultText = '';
+            let descriptionText = '';
+            let adviceText = '';
+            let resultClass = '';
+
+            if (totalScore <= 15) {
+                resultText = '낮음';
+                descriptionText = '현재 당신의 스트레스 지수는 낮은 편입니다. 전반적으로 안정적인 상태를 유지하고 있으며, 스트레스로 인한 어려움을 크게 느끼지 않는 것으로 보입니다.';
+                adviceText = '현재의 건강한 생활 습관을 잘 유지하는 것이 중요합니다. 규칙적인 생활, 적절한 휴식, 즐거운 활동 등을 통해 지금처럼 스트레스를 잘 관리해나가세요.';
+                resultClass = 'low-stress';
+            } else if (totalScore <= 30) {
+                resultText = '중간';
+                descriptionText = '당신은 어느 정도 스트레스를 받고 있지만, 아직까지는 일상생활에 큰 지장을 줄 정도는 아닙니다. 하지만 스트레스가 누적되지 않도록 주의해야 합니다.';
+                adviceText = '규칙적인 운동, 충분한 수면, 건강한 식단 관리를 통해 스트레스 저항력을 키우세요. 명상, 요가, 심호흡과 같은 이완 기법을 익히는 것도 도움이 됩니다. 친구나 가족과 대화하며 스트레스를 해소하는 것도 좋은 방법입니다.';
+                resultClass = 'moderate-stress';
+            } else if (totalScore <= 45) {
+                resultText = '높음';
+                descriptionText = '당신의 스트레스 지수는 높은 편입니다. 스트레스가 신체적, 정신적 건강에 영향을 미치고 있을 가능성이 있습니다. 적극적인 스트레스 관리가 필요합니다.';
+                adviceText = '스트레스의 원인을 파악하고, 가능한 한 원인을 제거하거나 줄이도록 노력하세요. 전문가의 도움을 받는 것도 고려해볼 필요가 있습니다. 꾸준한 운동, 규칙적인 수면, 건강한 식단은 필수적입니다. 취미 활동을 통해 스트레스를 해소하고, 긍정적인 마음을 유지하도록 노력하세요.';
+                resultClass = 'high-stress';
+            } else {
+                resultText = '매우 높음';
+                descriptionText = '당신의 스트레스 지수는 매우 높은 수준입니다. 즉각적인 조치가 필요하며, 전문가의 도움을 받는 것을 적극적으로 고려해야 합니다. 이 상태가 지속되면 심각한 건강 문제를 야기할 수 있습니다.';
+                adviceText = '혼자 힘으로 스트레스를 관리하기 어려울 수 있습니다. 정신건강의학과 전문의나 상담 전문가와 상담하여 적절한 치료와 지원을 받으세요. 규칙적인 생활 습관을 유지하고, 스트레스 해소에 도움이 되는 활동을 꾸준히 실천하는 것이 중요합니다.';
+                resultClass = 'very-high-stress';
+            }
+
+            const resultArea = document.getElementById('result-area');
+            resultArea.className = ''; // 기존 클래스 초기화
+            resultArea.classList.add(resultClass); // 새로운 결과 클래스 추가
+            document.getElementById('stressLevelResult').innerText = resultText;
+            document.getElementById('stressLevelDescription').innerText = descriptionText;
+            document.getElementById('stressLevelAdvice').innerText = adviceText;
+
+            resultArea.style.display = 'block';
+            resultArea.scrollIntoView({ behavior: 'smooth' });
+        });
+    </script>
+</body>
+</html>
